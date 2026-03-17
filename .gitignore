@@ -1,0 +1,4 @@
+*.o
+top-vect
+*.swp
+*.d
