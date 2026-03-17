@@ -38,7 +38,7 @@ namespace topit
   template < class T >
   bool Vector< T >::empty()
   {
-    return false;
+    return !size_;
   }
 }
 #endif
