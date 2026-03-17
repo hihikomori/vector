@@ -15,7 +15,7 @@ namespace topit
     Vector< value_type > &operator=(const Vector< value_type > &) = delete;
 
     bool empty();
-
+    void pushback(const T&);
   private:
     value_type *data_;
     size_t size_, capacity_;
@@ -40,5 +40,9 @@ namespace topit
   {
     return !size_;
   }
+
+  template < class T >
+  void Vector< T >::pushback(const T&)
+  {}
 }
 #endif
