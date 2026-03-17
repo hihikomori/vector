@@ -1,5 +1,6 @@
 #ifndef TOPIT_VECTOR_HPP
 #define TOPIT_VECTOR_HPP
+#include <cstddef>
 
 namespace topit
 {
