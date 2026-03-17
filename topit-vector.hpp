@@ -8,6 +8,11 @@ namespace topit
   {
     using value_type = T;
   public:
+    Vector < value_type >();
+    ~Vector < value_type >();
+
+    bool empty();
+
   private:
     value_type *data_;
     size_t size_, capacity_;
