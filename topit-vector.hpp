@@ -52,7 +52,7 @@ namespace topit
   template < class T >
   size_t Vector< T >::getSize()
   {
-    return 0;
+    return size_;
   }
 
 }

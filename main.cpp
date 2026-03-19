@@ -30,7 +30,8 @@ int main()
   using test_t = bool (*)();
   using pair_t = std::pair< const char *, test_t >;
   pair_t tests[] = {{"default vector is empty", testDefauilVector},
-                    {"vector with any value is not empty", testVectorWithValue}};
+                    {"vector with any value is not empty", testVectorWithValue},
+                    {"getsize return actual size of vector", testGetSize}};
 
   const size_t count = sizeof(tests) / sizeof(pair_t);
 
