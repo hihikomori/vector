@@ -13,7 +13,7 @@ namespace topit
     Vector();
     Vector(const Vector< value_type > &);
     ~Vector();
-    Vector< value_type > &operator=(const Vector< value_type > &) = delete;
+    Vector< value_type > &operator=(const Vector< value_type > &);
 
     bool empty();
     void pushback(const T &);
@@ -21,6 +21,7 @@ namespace topit
     size_t getCapacity();
     value_type &operator[](size_t) noexcept;
     const value_type &operator[](size_t) const noexcept;
+    void swap(Vector< T > &other) noexcept;
 
     void popback();
 
@@ -86,6 +87,26 @@ namespace topit
   template < class T > const T &Vector< T >::operator[](size_t id) const noexcept
   {
     return data_[id];
+  }
+
+  template < class T >
+  Vector< T > &Vector< T >::operator=(const Vector< T > &other)
+  {
+    if(this == &other) {
+      return *this;
+    }
+
+    Vector< T > cpy(other);
+    swap(cpy);
+    return *this;
+  }
+
+  template < class T >
+  void Vector< T >::swap(Vector< T > &other) noexcept
+  {
+    std::swap(other.data_, data_);
+    std::swap(other.size_, size_);
+    std::swap(other.capacity_, capacity_);
   }
 }
 

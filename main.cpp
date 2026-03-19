@@ -52,6 +52,26 @@ bool testOperatorAt()
   return c;
 }
 
+bool testOperatorCopy()
+{
+  topit::Vector< int > v;
+  for (size_t i = 0; i < 3; ++i) {
+    v.pushback(i);
+  }
+
+  topit::Vector< int > v2;
+  for (size_t i = 0; i < 4; ++i) {
+    v2.pushback(i * 2);
+  }
+
+  bool c = (v.getSize() == 3 && v2.getSize() == 4) && (v[2] == 2 && v2[3] == 6);
+
+  v2 = v;
+  bool c2 = (v2.getSize() == 3 && v2[2] == 2) && !(v.empty());
+
+  return c && c2;
+}
+
 int main()
 {
   using test_t = bool (*)();
@@ -60,7 +80,8 @@ int main()
                     {"vector with any value is not empty", testVectorWithValue},
                     {"getsize return actual size of vector", testGetSize},
                     {"copy constructor copy data_, size_ and capacity_", testCopyConstructor},
-                    {"operator[] allows to view elem on pos", testOperatorAt}};
+                    {"operator[] allows to view elem on pos", testOperatorAt},
+                    {"copy operator does not delete copyble and copy it", testOperatorCopy}};
 
   const size_t count = sizeof(tests) / sizeof(pair_t);
 
