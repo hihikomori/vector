@@ -69,19 +69,23 @@ namespace topit
 
   template < class T >
   Vector< T >::Vector(const Vector< T > &other):
-    data_(),
-    size_(),
-    capacity_()
-  {}
+    data_(new T[other.size_]),
+    size_(other.size_),
+    capacity_(other.capacity_)
+  {
+    for(size_t i = 0; i < size_; ++i) {
+      data_[i] = other.data_[i];
+    }
+  }
 
   template < class T > T &Vector< T >::operator[](size_t id) noexcept
   {
-    return data_[0];
+    return data_[id];
   }
 
   template < class T > const T &Vector< T >::operator[](size_t id) const noexcept
   {
-    return data_[0];
+    return data_[id];
   }
 }
 
