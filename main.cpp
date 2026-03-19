@@ -17,6 +17,14 @@ bool testVectorWithValue()
   return c1 && (!c2);
 }
 
+bool testGetSize()
+{
+  topit::Vector< int > v;
+  v.pushback(2);
+  bool c = (v.getSize() == 1);
+  return c;
+}
+
 int main()
 {
   using test_t = bool (*)();

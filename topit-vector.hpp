@@ -16,6 +16,10 @@ namespace topit
 
     bool empty();
     void pushback(const T&);
+    size_t getSize();
+    size_t getCapacity();
+
+    void popback();
   private:
     value_type *data_;
     size_t size_, capacity_;
@@ -44,5 +48,12 @@ namespace topit
   template < class T >
   void Vector< T >::pushback(const T&)
   {}
+
+  template < class T >
+  size_t Vector< T >::getSize()
+  {
+    return 0;
+  }
+
 }
 #endif
