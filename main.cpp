@@ -21,6 +21,7 @@ bool testGetSize()
 {
   topit::Vector< int > v;
   v.pushback(2);
+  std::cout << v.getSize();
   bool c = (v.getSize() == 1);
   return c;
 }

@@ -15,11 +15,12 @@ namespace topit
     Vector< value_type > &operator=(const Vector< value_type > &) = delete;
 
     bool empty();
-    void pushback(const T&);
+    void pushback(const T &);
     size_t getSize();
     size_t getCapacity();
 
     void popback();
+
   private:
     value_type *data_;
     size_t size_, capacity_;
@@ -32,25 +33,33 @@ namespace topit
     capacity_(0)
   {}
 
-  template < class T >
-  Vector< T >::~Vector(){
+  template < class T > Vector< T >::~Vector()
+  {
     delete data_;
     size_ = 0;
     capacity_ = 0;
   }
 
-  template < class T >
-  bool Vector< T >::empty()
+  template < class T > bool Vector< T >::empty()
   {
     return !size_;
   }
 
-  template < class T >
-  void Vector< T >::pushback(const T&)
-  {}
+  template < class T > void Vector< T >::pushback(const T &val)
+  {
+    if (size_ == capacity_) {
+      size_t new_cap = size_ ? capacity_ * 1.5 : 2;
+      T* tmp_data_ = new T[new_cap];
+      for(size_t i = 0; i < size_; ++i) {
+        tmp_data_[i] = data_[i];
+      }
+      data_ = tmp_data_;
+    }
 
-  template < class T >
-  size_t Vector< T >::getSize()
+    data_[size_++] = val;
+  }
+
+  template < class T > size_t Vector< T >::getSize()
   {
     return size_;
   }
