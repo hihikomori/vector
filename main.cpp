@@ -21,8 +21,34 @@ bool testGetSize()
 {
   topit::Vector< int > v;
   v.pushback(2);
-  std::cout << v.getSize();
   bool c = (v.getSize() == 1);
+  return c;
+}
+
+bool testCopyConstructor()
+{
+  topit::Vector< int > v;
+  v.pushback(2);
+  v.pushback(3);
+  bool c = (v.getSize() == 2) && (v[1] == 3);
+  topit::Vector< int > copied(v);
+
+  bool c1 = (v.getSize() == 2) && (v[1] == 3);
+  return c && c1;
+}
+
+bool testOperatorAt()
+{
+  topit::Vector< int > v;
+  for (size_t i = 0; i < 5; ++i) {
+    v.pushback(i);
+  }
+
+  bool c = true;
+  for (size_t i = 0; i < v.getSize(); ++i) {
+    c = (v[i] == i) && c;
+  }
+
   return c;
 }
 
@@ -32,7 +58,9 @@ int main()
   using pair_t = std::pair< const char *, test_t >;
   pair_t tests[] = {{"default vector is empty", testDefauilVector},
                     {"vector with any value is not empty", testVectorWithValue},
-                    {"getsize return actual size of vector", testGetSize}};
+                    {"getsize return actual size of vector", testGetSize},
+                    {"copy constructor copy data_, size_ and capacity_", testCopyConstructor},
+                    {"operator[] allows to view elem on pos", testOperatorAt}};
 
   const size_t count = sizeof(tests) / sizeof(pair_t);
 

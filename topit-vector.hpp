@@ -1,6 +1,7 @@
+#include <cstddef>
+#include <cassert>
 #ifndef TOPIT_VECTOR_HPP
 #define TOPIT_VECTOR_HPP
-#include <cstddef>
 
 namespace topit
 {
@@ -10,7 +11,7 @@ namespace topit
 
   public:
     Vector();
-    Vector(const Vector< value_type > &) = delete;
+    Vector(const Vector< value_type > &);
     ~Vector();
     Vector< value_type > &operator=(const Vector< value_type > &) = delete;
 
@@ -18,6 +19,8 @@ namespace topit
     void pushback(const T &);
     size_t getSize();
     size_t getCapacity();
+    value_type &operator[](size_t) noexcept;
+    const value_type &operator[](size_t) const noexcept;
 
     void popback();
 
@@ -49,8 +52,8 @@ namespace topit
   {
     if (size_ == capacity_) {
       size_t new_cap = size_ ? capacity_ * 1.5 : 2;
-      T* tmp_data_ = new T[new_cap];
-      for(size_t i = 0; i < size_; ++i) {
+      T *tmp_data_ = new T[new_cap];
+      for (size_t i = 0; i < size_; ++i) {
         tmp_data_[i] = data_[i];
       }
       data_ = tmp_data_;
@@ -64,5 +67,22 @@ namespace topit
     return size_;
   }
 
+  template < class T >
+  Vector< T >::Vector(const Vector< T > &other):
+    data_(),
+    size_(),
+    capacity_()
+  {}
+
+  template < class T > T &Vector< T >::operator[](size_t id) noexcept
+  {
+    return data_[0];
+  }
+
+  template < class T > const T &Vector< T >::operator[](size_t id) const noexcept
+  {
+    return data_[0];
+  }
 }
+
 #endif
