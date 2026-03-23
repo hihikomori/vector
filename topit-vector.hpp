@@ -18,6 +18,7 @@ namespace topit
 
     bool empty();
     void pushback(const T &);
+    void pushfront(const T &);
     size_t getSize() const noexcept;
     size_t getCapacity() const noexcept;
     value_type &operator[](size_t) noexcept;
@@ -133,6 +134,12 @@ namespace topit
   void Vector< T >::popback()
   {
     --size_;
+  }
+
+  template < class T >
+  void Vector < T >::pushfront(const T&)
+  {
+    return;
   }
 }
 

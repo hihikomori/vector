@@ -113,6 +113,19 @@ bool testPopBack()
   return c;
 }
 
+bool testPushFront()
+{
+  topit::Vector< int > v;
+  v.pushback(999);
+  v.pushfront(1);
+  v.pushfront(2);
+  v.pushfront(3);
+
+  bool c = (v[0] == 3);
+
+  return c;
+}
+
 int main()
 {
   using test_t = bool (*)();
@@ -125,7 +138,8 @@ int main()
                     {"copy operator does not delete copyble and copy it", testOperatorCopy},
                     {"swap func is actually swapping 2 vecs", testSwap},
                     {"get capacity return actual capacity of vector", testGetCapacity},
-                    {"popback change vector size", testPopBack}};
+                    {"popback change vector size", testPopBack},
+                    {"pushfront insert T in 0 position", testPushFront}};
 
   const size_t count = sizeof(tests) / sizeof(pair_t);
 
