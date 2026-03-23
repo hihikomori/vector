@@ -46,7 +46,7 @@ bool testOperatorAt()
 
   bool c = true;
   for (size_t i = 0; i < v.getSize(); ++i) {
-    c = (v[i] == i) && c;
+    c = (v[i] == static_cast< int >(i)) && c;
   }
 
   return c;
@@ -72,6 +72,21 @@ bool testOperatorCopy()
   return c && c2;
 }
 
+bool testSwap()
+{
+  topit::Vector< int > v;
+  v.pushback(5);
+  v.pushback(4);
+  v.pushback(2);
+
+  topit::Vector< int > other;
+  v.swap(other);
+
+  bool c = (other.getSize() == 3) && (other[2] == 2);
+  bool c1 = (v.getSize() == 0);
+  return c && c1;
+}
+
 int main()
 {
   using test_t = bool (*)();
@@ -81,7 +96,8 @@ int main()
                     {"getsize return actual size of vector", testGetSize},
                     {"copy constructor copy data_, size_ and capacity_", testCopyConstructor},
                     {"operator[] allows to view elem on pos", testOperatorAt},
-                    {"copy operator does not delete copyble and copy it", testOperatorCopy}};
+                    {"copy operator does not delete copyble and copy it", testOperatorCopy},
+                    {"swap func is actually swapping 2 vecs", testSwap}};
 
   const size_t count = sizeof(tests) / sizeof(pair_t);
 

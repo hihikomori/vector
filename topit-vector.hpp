@@ -17,8 +17,8 @@ namespace topit
 
     bool empty();
     void pushback(const T &);
-    size_t getSize();
-    size_t getCapacity();
+    size_t getSize() const noexcept;
+    size_t getCapacity() const noexcept;
     value_type &operator[](size_t) noexcept;
     const value_type &operator[](size_t) const noexcept;
     void swap(Vector< T > &other) noexcept;
@@ -26,6 +26,7 @@ namespace topit
     void popback();
 
   private:
+    explicit Vector(size_t);
     value_type *data_;
     size_t size_, capacity_;
   };
@@ -35,6 +36,13 @@ namespace topit
     data_(nullptr),
     size_(0),
     capacity_(0)
+  {}
+
+  template < class T >
+  Vector< T >::Vector(size_t k):
+    data_(new T[k]),
+    size_(k),
+    capacity_(k)
   {}
 
   template < class T > Vector< T >::~Vector()
@@ -63,18 +71,16 @@ namespace topit
     data_[size_++] = val;
   }
 
-  template < class T > size_t Vector< T >::getSize()
+  template < class T > size_t Vector< T >::getSize() const noexcept
   {
     return size_;
   }
 
   template < class T >
   Vector< T >::Vector(const Vector< T > &other):
-    data_(new T[other.size_]),
-    size_(other.size_),
-    capacity_(other.capacity_)
+    Vector(other.getSize())
   {
-    for(size_t i = 0; i < size_; ++i) {
+    for (size_t i = 0; i < size_; ++i) {
       data_[i] = other.data_[i];
     }
   }
@@ -89,10 +95,9 @@ namespace topit
     return data_[id];
   }
 
-  template < class T >
-  Vector< T > &Vector< T >::operator=(const Vector< T > &other)
+  template < class T > Vector< T > &Vector< T >::operator=(const Vector< T > &other)
   {
-    if(this == &other) {
+    if (this == &other) {
       return *this;
     }
 
@@ -101,8 +106,7 @@ namespace topit
     return *this;
   }
 
-  template < class T >
-  void Vector< T >::swap(Vector< T > &other) noexcept
+  template < class T > void Vector< T >::swap(Vector< T > &other) noexcept
   {
     std::swap(other.data_, data_);
     std::swap(other.size_, size_);
