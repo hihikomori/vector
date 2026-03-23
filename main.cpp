@@ -94,8 +94,22 @@ bool testGetCapacity()
   v.pushback(5);
   v.pushback(5);
   v.pushback(5);
-  
+
   bool c = (v.getCapacity() == 4);
+  return c;
+}
+
+bool testPopBack()
+{
+  topit::Vector< int > v;
+  v.pushback(1);
+  v.pushback(1);
+  v.pushback(1);
+
+  bool c = (v.getSize() == 3);
+  v.popback();
+  c = c && (v.getSize() == 2);
+
   return c;
 }
 
@@ -110,7 +124,8 @@ int main()
                     {"operator[] allows to view elem on pos", testOperatorAt},
                     {"copy operator does not delete copyble and copy it", testOperatorCopy},
                     {"swap func is actually swapping 2 vecs", testSwap},
-                    {"get capacity return actual capacity of vector", testGetCapacity}};
+                    {"get capacity return actual capacity of vector", testGetCapacity},
+                    {"popback change vector size", testPopBack}};
 
   const size_t count = sizeof(tests) / sizeof(pair_t);
 

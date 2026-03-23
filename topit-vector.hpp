@@ -128,6 +128,12 @@ namespace topit
   {
     return capacity_;
   }
+
+  template < class T >
+  void Vector< T >::popback()
+  {
+    return;
+  }
 }
 
 #endif
