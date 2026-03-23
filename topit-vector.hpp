@@ -132,7 +132,7 @@ namespace topit
   template < class T >
   void Vector< T >::popback()
   {
-    return;
+    --size_;
   }
 }
 
