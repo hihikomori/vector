@@ -87,6 +87,18 @@ bool testSwap()
   return c && c1;
 }
 
+bool testGetCapacity()
+{
+  topit::Vector< int > v;
+  v.pushback(5);
+  v.pushback(5);
+  v.pushback(5);
+  v.pushback(5);
+  
+  bool c = (v.getCapacity() == 4);
+  return c;
+}
+
 int main()
 {
   using test_t = bool (*)();
@@ -97,7 +109,8 @@ int main()
                     {"copy constructor copy data_, size_ and capacity_", testCopyConstructor},
                     {"operator[] allows to view elem on pos", testOperatorAt},
                     {"copy operator does not delete copyble and copy it", testOperatorCopy},
-                    {"swap func is actually swapping 2 vecs", testSwap}};
+                    {"swap func is actually swapping 2 vecs", testSwap},
+                    {"get capacity return actual capacity of vector", testGetCapacity}};
 
   const size_t count = sizeof(tests) / sizeof(pair_t);
 

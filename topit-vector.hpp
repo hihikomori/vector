@@ -1,11 +1,12 @@
-#include <cstddef>
 #include <cassert>
+#include <cstddef>
 #ifndef TOPIT_VECTOR_HPP
 #define TOPIT_VECTOR_HPP
 
 namespace topit
 {
-  template < class T > class Vector
+  template < class T >
+  class Vector
   {
     using value_type = T;
 
@@ -45,23 +46,27 @@ namespace topit
     capacity_(k)
   {}
 
-  template < class T > Vector< T >::~Vector()
+  template < class T >
+  Vector< T >::~Vector()
   {
     delete data_;
     size_ = 0;
     capacity_ = 0;
   }
 
-  template < class T > bool Vector< T >::empty()
+  template < class T >
+  bool Vector< T >::empty()
   {
     return !size_;
   }
 
-  template < class T > void Vector< T >::pushback(const T &val)
+  template < class T >
+  void Vector< T >::pushback(const T &val)
   {
     if (size_ == capacity_) {
-      size_t new_cap = size_ ? capacity_ * 1.5 : 2;
+      size_t new_cap = size_ ? (capacity_ * 1.5) : 2;
       T *tmp_data_ = new T[new_cap];
+      capacity_ = new_cap;
       for (size_t i = 0; i < size_; ++i) {
         tmp_data_[i] = data_[i];
       }
@@ -71,7 +76,8 @@ namespace topit
     data_[size_++] = val;
   }
 
-  template < class T > size_t Vector< T >::getSize() const noexcept
+  template < class T >
+  size_t Vector< T >::getSize() const noexcept
   {
     return size_;
   }
@@ -85,17 +91,20 @@ namespace topit
     }
   }
 
-  template < class T > T &Vector< T >::operator[](size_t id) noexcept
+  template < class T >
+  T &Vector< T >::operator[](size_t id) noexcept
   {
     return data_[id];
   }
 
-  template < class T > const T &Vector< T >::operator[](size_t id) const noexcept
+  template < class T >
+  const T &Vector< T >::operator[](size_t id) const noexcept
   {
     return data_[id];
   }
 
-  template < class T > Vector< T > &Vector< T >::operator=(const Vector< T > &other)
+  template < class T >
+  Vector< T > &Vector< T >::operator=(const Vector< T > &other)
   {
     if (this == &other) {
       return *this;
@@ -106,11 +115,18 @@ namespace topit
     return *this;
   }
 
-  template < class T > void Vector< T >::swap(Vector< T > &other) noexcept
+  template < class T >
+  void Vector< T >::swap(Vector< T > &other) noexcept
   {
     std::swap(other.data_, data_);
     std::swap(other.size_, size_);
     std::swap(other.capacity_, capacity_);
+  }
+
+  template < class T >
+  size_t Vector< T >::getCapacity() const noexcept
+  {
+    return 0;
   }
 }
 
