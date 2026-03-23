@@ -137,9 +137,24 @@ namespace topit
   }
 
   template < class T >
-  void Vector < T >::pushfront(const T&)
+  void Vector< T >::pushfront(const T &value)
   {
-    return;
+    if (size_ == capacity_) {
+      capacity_ = size_ ? (capacity_ * 1.5) : 2;
+    }
+
+    T *tmp_data_ = new T[capacity_];
+    if (size_ > 1) {
+      size_t j = 1;
+      for (size_t i = 0; i < size_; ++i) {
+        tmp_data_[j] = data_[i];
+        j++;
+      }
+    }
+    tmp_data_[0] = value;
+    ++size_;
+
+    data_ = tmp_data_;
   }
 }
 
