@@ -9,28 +9,30 @@ namespace topit
   class Vector
   {
     using value_type = T;
+    using size_type = size_t;
 
   public:
     Vector();
     Vector(const Vector< value_type > &);
-    ~Vector();
     Vector< value_type > &operator=(const Vector< value_type > &);
+    value_type &operator[](size_type) noexcept;
+    const value_type &operator[](size_type) const noexcept;
+    ~Vector();
 
-    bool empty();
-    void pushback(const T &);
-    void pushfront(const T &);
-    size_t getSize() const noexcept;
-    size_t getCapacity() const noexcept;
-    value_type &operator[](size_t) noexcept;
-    const value_type &operator[](size_t) const noexcept;
-    void swap(Vector< T > &other) noexcept;
-
+    void pushback(const value_type &);
+    void pushfront(const value_type &);
     void popback();
 
+    bool empty() const noexcept;
+    size_type getSize() const noexcept;
+    size_type getCapacity() const noexcept;
+
+    void swap(Vector< value_type > &other) noexcept;
+
   private:
-    explicit Vector(size_t);
+    explicit Vector(size_type);
     value_type *data_;
-    size_t size_, capacity_;
+    size_type size_, capacity_;
   };
 
   template < class T >
@@ -56,7 +58,7 @@ namespace topit
   }
 
   template < class T >
-  bool Vector< T >::empty()
+  bool Vector< T >::empty() const noexcept
   {
     return !size_;
   }
