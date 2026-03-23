@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cassert>
 #include <cstddef>
 #ifndef TOPIT_VECTOR_HPP
@@ -52,7 +53,7 @@ namespace topit
   template < class T >
   Vector< T >::~Vector()
   {
-    delete data_;
+    delete[] data_;
     size_ = 0;
     capacity_ = 0;
   }
@@ -67,12 +68,13 @@ namespace topit
   void Vector< T >::pushback(const T &val)
   {
     if (size_ == capacity_) {
-      size_t new_cap = size_ ? (capacity_ * 1.5) : 2;
+      size_t new_cap = size_ ? (capacity_ * 3 / 2) : 2;
       T *tmp_data_ = new T[new_cap];
       capacity_ = new_cap;
       for (size_t i = 0; i < size_; ++i) {
         tmp_data_[i] = data_[i];
       }
+      delete[] data_;
       data_ = tmp_data_;
     }
 
@@ -97,12 +99,14 @@ namespace topit
   template < class T >
   T &Vector< T >::operator[](size_t id) noexcept
   {
+    assert(id < getSize());
     return data_[id];
   }
 
   template < class T >
   const T &Vector< T >::operator[](size_t id) const noexcept
   {
+    assert(id < getSize());
     return data_[id];
   }
 
@@ -135,6 +139,7 @@ namespace topit
   template < class T >
   void Vector< T >::popback()
   {
+    assert(size_ > 0);
     --size_;
   }
 
@@ -142,21 +147,25 @@ namespace topit
   void Vector< T >::pushfront(const T &value)
   {
     if (size_ == capacity_) {
-      capacity_ = size_ ? (capacity_ * 1.5) : 2;
-    }
+      size_t new_cap = size_ ? (capacity_ * 3 / 2) : 2;
+      T *tmp_data_ = new T[new_cap];
 
-    T *tmp_data_ = new T[capacity_];
-    if (size_ > 1) {
-      size_t j = 1;
       for (size_t i = 0; i < size_; ++i) {
-        tmp_data_[j] = data_[i];
-        j++;
+        tmp_data_[i + 1] = data_[i];
       }
-    }
-    tmp_data_[0] = value;
-    ++size_;
+      tmp_data_[0] = value;
 
-    data_ = tmp_data_;
+      delete[] data_;
+      data_ = tmp_data_;
+      capacity_ = new_cap;
+      ++size_;
+    } else {
+      for (size_t i = size_; i > 0; --i) {
+        data_[i] = data_[i - 1];
+      }
+      data_[0] = value;
+      ++size_;
+    }
   }
 }
 
