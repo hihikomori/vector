@@ -126,7 +126,7 @@ namespace topit
   template < class T >
   size_t Vector< T >::getCapacity() const noexcept
   {
-    return 0;
+    return capacity_;
   }
 }
 
